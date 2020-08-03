@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AminSamadzadeh\\Vspobish\\": "src/"
+            "AminSamadzadeh\\Vispobish\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AminSamadzadeh\\Vspobish\\Tests\\": "tests/"
+            "AminSamadzadeh\\Vispobish\\Tests\\": "tests/"
         }
     }
 }

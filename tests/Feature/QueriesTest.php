@@ -10,7 +10,6 @@ use AminSamadzadeh\Vispobish\Treeable;
 
 class QueriesTest extends TestCase
 {
-    use RefreshDatabase;
     protected $capsule;
 
     protected function setUp(): void
@@ -20,15 +19,23 @@ class QueriesTest extends TestCase
     }
 
     /** @test */
-    public function sampleTest()
+    public function createChildTest()
     {
-        $this->assertTrue(true);
+        $this->seedData();
+        $cat = Category::find(3);
+        $childCat = $cat->children()->create(['name' => 'child']);
+        $count = Category::where([
+            'name' => $childCat->name,
+            'path' => $cat->path.'/'.$childCat->parent_id,
+            'named_path' => $cat->named_path.'/'.$childCat->name
+        ])->count();
+        $this->assertEquals($count, 1);
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'testdb');
-        $app['config']->set('database.connections.testdb', [
+        $app['config']->set('database.default', 'default');
+        $app['config']->set('database.connections.default', [
             'driver' => 'sqlite',
             'database' => ':memory:'
         ]);
@@ -41,10 +48,7 @@ class QueriesTest extends TestCase
     public function createSchema()
     {
         $this->capsule = new Capsule;
-        $this->capsule->addConnection([
-            'driver' => 'sqlite',
-            'database' => ':memory:'
-        ]);
+        $this->capsule->addConnection(app()['config']['database.connections.default']);
         $this->capsule->bootEloquent();
         $this->capsule->setAsGlobal();
 
@@ -74,14 +78,14 @@ class QueriesTest extends TestCase
            [
                 "id" => 2,
                 "name" => "child1",
-                "path" => "1",
+                "path" => "/1",
                 "named_path" => "root/child1",
                 "parent_id" => 1
             ],
             [
                 "id" => 3,
                 "name" => "child1.1",
-                "path" => "1/2",
+                "path" => "/1/2",
                 "named_path" => "root/child1/child1.1",
                 "parent_id" => 2
             ],
@@ -95,4 +99,7 @@ class QueriesTest extends TestCase
 class Category extends Model
 {
     use Treeable;
+    protected $fillable = ['name'];
+    public $timestamps = false;
+    public $pathNamedWith = 'name';
 }
