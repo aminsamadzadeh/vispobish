@@ -73,7 +73,7 @@ trait Treeable
 
     public function updateChildrenPath()
     {
-        foreach($this->flatChildren()->get() as $child)
+        foreach($this->descendants()->get() as $child)
         {
             $child->setPathID();
             $child->save();
