@@ -3,17 +3,8 @@
     "description": "tree structure for eloquent models",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "amin",
-            "email": "amin.samadzadeh@gmail.com"
-        }
-    ],
     "require": {
-        "illuminate/support": "^7.19"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^5.3"
+        "laravel/framework": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -24,5 +15,14 @@
         "psr-4": {
             "AminSamadzadeh\\Vispobish\\Tests\\": "tests/"
         }
+    },
+    "authors": [
+        {
+            "name": "amin",
+            "email": "amin.samadzadeh@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^5.3"
     }
 }
