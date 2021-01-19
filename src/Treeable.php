@@ -40,14 +40,16 @@ trait Treeable
                 ->orWhere('path', 'like', "%/{$this->id}");
     }
 
-
     public function ancestors()
     {
-        $parentIDs = array_filter(explode('/', $this->path));
-
         return
             $this->newQuery()
-                ->whereIn('id', $parentIDs);
+                ->whereIn('id', $this->parentIds());
+    }
+
+    public function parentIds()
+    {
+        return array_filter(explode('/', $this->path));
     }
 
     protected function setPathID()

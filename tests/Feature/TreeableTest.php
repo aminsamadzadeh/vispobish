@@ -47,6 +47,13 @@ class TreeableTest extends TestCase
     }
 
     /** @test */
+    public function parentIdsTest()
+    {
+        $cat = Category::find(3);
+        $this->assertEquals(count($cat->parentIds()), 2);
+    }
+
+    /** @test */
     public function autoUpdateChildrenPathTest()
     {
         $super = Category::create(['name'=> 'super']);
