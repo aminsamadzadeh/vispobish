@@ -65,6 +65,6 @@ class Category extends Model
 ### Relationship
 
 - `$cat->parent()` get parent
-- `$cat->children` get children
-- `$cat->descendants` get flatten children of childrens
-- `$cat->ancestors` get flatten all parents
+- `$cat->children()` get children
+- `$cat->descendants()` get flatten children of childrens
+- `$cat->ancestors()` get flatten all parents
