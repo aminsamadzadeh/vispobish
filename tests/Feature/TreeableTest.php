@@ -64,5 +64,21 @@ class TreeableTest extends TestCase
             $this->assertStringContainsString('/4', $category->path);
     }
 
+    /** @test */
+    public function isRootTest()
+    {
+        $cat = Category::find(1);
+        $this->assertTrue($cat->isRoot());
+
+        $cat2 = Category::find(3);
+        $this->assertFalse($cat2->isRoot());
+    }
+
+    /** @test */
+    public function scopeRootsTest()
+    {
+        $cats = Category::roots()->get();
+        $this->assertEquals($cats->count(), 1);
+    }
 
 }

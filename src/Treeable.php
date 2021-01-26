@@ -82,4 +82,14 @@ trait Treeable
         }
     }
 
+    public function isRoot()
+    {
+        return is_null($this->parent_id);
+    }
+
+    public function scopeRoots($query)
+    {
+        $query->whereNull('parent_id');
+    }
+
 }
